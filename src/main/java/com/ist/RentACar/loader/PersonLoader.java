@@ -21,7 +21,7 @@ public class PersonLoader implements CommandLineRunner{
     @Override
     public void run(String... strings)throws Exception {
 
-        logger.info("Chargement des données...");
+        logger.info("Chargement des données d'utilisateurs");
 
         repository.save(new Person("John", "Doe"));
         repository.save(new Person("Albert", "Einstein"));

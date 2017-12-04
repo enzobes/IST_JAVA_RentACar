@@ -36,7 +36,7 @@ public class Voiture {
 
 
     public void addRent(Rent rent) {
-        this.getRents().add(rent);
+        this.rents.add(rent);
         rent.voiture = this;
     }
 

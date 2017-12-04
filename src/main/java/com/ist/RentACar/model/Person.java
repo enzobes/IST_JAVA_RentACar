@@ -35,7 +35,7 @@ public class Person {
     }
 
     public void addRent(Rent rent) {
-        this.getRents().add(rent);
+        this.rents.add(rent);
         rent.client = this;
     }
 

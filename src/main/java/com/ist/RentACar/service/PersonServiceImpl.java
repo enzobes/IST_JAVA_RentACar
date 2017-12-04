@@ -20,6 +20,11 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    public Person findByNames(String firstName, String lastName) {
+        return repository.findByFirstNameAndLastName(firstName, lastName);
+    }
+
+    @Override
     public void savePerson(Person person) {
         repository.save(person);
     }

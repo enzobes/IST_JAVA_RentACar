@@ -4,7 +4,8 @@ package com.ist.RentACar.web;
 import com.ist.RentACar.model.Person;
 import com.ist.RentACar.model.User;
 import com.ist.RentACar.model.Voiture;
-import com.ist.RentACar.repository.VoitureRepository;
+import com.ist.RentACar.service.PersonService;
+import com.ist.RentACar.service.RentService;
 import com.ist.RentACar.service.VoitureService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,12 +25,16 @@ public class RentACarWebService {
 
     @Autowired
     private VoitureService voitureService;
+    @Autowired
+    private PersonService personService;
+    @Autowired
+    private RentService rentService;
 
     // La voiture créée a pour paramètre l'objet json envoyé avec la requete
     @RequestMapping(value = "/voiture", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void creerVoiture(@RequestBody Voiture v) {
-        System.out.println("POST voiture");
+        log.info("POST voiture");
         this.voitureService.saveVoiture(v);
     }
 
@@ -39,6 +43,7 @@ public class RentACarWebService {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public Voiture obtenirUneVoiture(@PathVariable(value = "id") long id) {
+        log.info("GET /voiture/:id");
         return this.voitureService.findOne(id);
     }
 
@@ -47,8 +52,7 @@ public class RentACarWebService {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public List<Voiture> listeDeVoitures() {
-        // TODO
-
+        log.info("GET /voiture");
         return this.voitureService.findAll();
     }
 
@@ -57,15 +61,18 @@ public class RentACarWebService {
     @RequestMapping(value = "/louer/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public void louerUneVoiture(@PathVariable("id") int id, @RequestBody Person p) {
-        // TODO
+    public void louerUneVoiture(@PathVariable("id") long id, @RequestBody Person p) {
+        log.info("PUT /louer/:id");
+        Voiture v = voitureService.findOne(id);
+        rentService.saveRent(v, p);
     }
 
     // Retourner la voiture après une location
     @RequestMapping(value = "/retourner/{id}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void retournerVoiture(@PathVariable("id") int id) {
-    // TODO
+    public void retournerVoiture(@PathVariable("id") long id) {
+        log.info("POST /retourner/:id");
+        rentService.delete(id);
     }
 
 
@@ -73,7 +80,8 @@ public class RentACarWebService {
     @RequestMapping(value = "/voiture/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public void deleteCar(@PathVariable int id) {
-        // TODO
+        log.info("DELETE /voiture/:id");
+        voitureService.delete(id);
     }
 
 

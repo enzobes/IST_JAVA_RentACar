@@ -20,6 +20,11 @@ public class VoitureServiceImpl implements VoitureService{
     }
 
     @Override
+    public Voiture findByPlaque(String plaque) {
+        return repository.findByPlateNumber(plaque);
+    }
+
+    @Override
     public void saveVoiture(Voiture voiture) {
         repository.save(voiture);
     }

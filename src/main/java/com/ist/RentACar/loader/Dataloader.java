@@ -21,7 +21,7 @@ public class Dataloader implements CommandLineRunner{
     @Override
     public void run(String... strings)throws Exception {
 
-        logger.info("Chargement des données...");
+        logger.info("Chargement des données des voitures");
 
         repository.save(new Voiture("04AH91", "Renault"));
         repository.save(new Voiture("34GA36", "Audi"));

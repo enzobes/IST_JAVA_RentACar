@@ -6,7 +6,10 @@ import java.util.List;
 
 public interface PersonService {
     public List<Person> findAll();
-    public void savePerson(Person voiture);
+
+    public Person findByNames(String firstName, String lastName);
+
+    public void savePerson(Person person);
     public Person findOne(long id);
     public void delete(long id);
 }
