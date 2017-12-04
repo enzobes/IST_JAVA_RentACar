@@ -12,19 +12,19 @@ public class Voiture {
     private Long id;
     private String plateNumber;
     private String marque;
-    //private Collection<Rent> rents;
+    @Column(name="RENTS")
+    @ElementCollection(targetClass=Rent.class)
+    private Collection<Rent> rents;
 
     protected Voiture() {
     }
 
-    ;
 
     public Voiture(String plateNumber, String marque) {
         this.plateNumber = plateNumber;
         this.marque = marque;
     }
 
-    /*
     @OneToMany
     public Collection<Rent> getRents() {
         return rents;
@@ -40,7 +40,6 @@ public class Voiture {
         rent.voiture = this;
     }
 
-    */
 
     public String getPlateNumber() {
         return plateNumber;

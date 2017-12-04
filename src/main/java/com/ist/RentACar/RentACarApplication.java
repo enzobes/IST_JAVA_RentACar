@@ -1,13 +1,9 @@
 package com.ist.RentACar;
 
-import com.ist.RentACar.model.Voiture;
-import com.ist.RentACar.service.VoitureRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class RentACarApplication {
@@ -19,6 +15,8 @@ public class RentACarApplication {
         SpringApplication.run(RentACarApplication.class, args);
     }
 
+
+    /*
     @Bean
     public CommandLineRunner demo(VoitureRepository repository) {
         return (args) -> {
@@ -29,6 +27,7 @@ public class RentACarApplication {
             repository.save(new Voiture("48NA01", "Fiat"));
             repository.save(new Voiture("62AD49", "Citroën"));
             repository.save(new Voiture("82HG30", "Mercedes"));
+
 
             // fetch all customers
             log.info("Voitures found with findAll():");
@@ -43,6 +42,7 @@ public class RentACarApplication {
             log.info("Voiture found with findOne(1L):");
             log.info("--------------------------------");
             log.info(voiture.toString());
+
             log.info("");
 
 
@@ -56,4 +56,5 @@ public class RentACarApplication {
 
         };
     }
+    */
 }

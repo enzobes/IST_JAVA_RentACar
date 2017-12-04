@@ -12,16 +12,19 @@ public class Person {
     private Long id;
     private String firstName;
     private String lastName;
-    // private Collection<Rent> rents;
+    @Column(name="RENTS")
+    @ElementCollection(targetClass=Rent.class)
+    private Collection<Rent> rents;
 
-    protected Person() {};
+    protected Person() {
+    }
 
     public Person(String firstName, String lastName) {
         this.firstName=firstName;
         this.lastName=lastName;
     }
 
-    /*
+
     @OneToMany
     public Collection<Rent> getRents() {
         return rents;
@@ -35,7 +38,7 @@ public class Person {
         this.getRents().add(rent);
         rent.client = this;
     }
-    */
+
 
     public String getFirstName() {
         return firstName;

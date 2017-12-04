@@ -9,19 +9,21 @@ public class Rent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID")
     private long id;
     @Column(name = "BEGIN_RENT")
     private Date beginRent;
     @Column(name = "END_RENT")
     private Date endRent;
-    /*
-    @Column(name = "VOITURE")
-    private
+
+    @ManyToOne(cascade=CascadeType.ALL)
+    @ElementCollection(targetClass=Voiture.class)
     Voiture voiture;
-    @Column(name = "CLIENT")
-    private
+
+    @ManyToOne(cascade=CascadeType.ALL)
+    @ElementCollection(targetClass=Person.class)
     Person client;
-    */
+
 
     @Temporal(TemporalType.DATE)
     public Date getBeginRent() {
@@ -41,8 +43,8 @@ public class Rent {
         this.endRent = date;
     }
 
-    /*
-    @ManyToOne
+
+    // @ManyToOne(cascade=CascadeType.ALL)
     public Voiture getVoiture() {
         return voiture;
     }
@@ -51,7 +53,7 @@ public class Rent {
         this.voiture = voiture;
     }
 
-    @ManyToOne
+    // @ManyToOne(cascade=CascadeType.ALL)
     public Person getClient() {
         return client;
     }
@@ -59,6 +61,6 @@ public class Rent {
     public void setClient(Person client) {
         this.client = client;
     }
-    */
+
 
 }

@@ -1,4 +1,4 @@
-package com.ist.RentACar.service;
+package com.ist.RentACar.repository;
 
 import com.ist.RentACar.model.Voiture;
 import org.springframework.data.repository.CrudRepository;
