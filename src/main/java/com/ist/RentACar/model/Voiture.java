@@ -24,6 +24,9 @@ public class Voiture {
         this.marque = marque;
     }
 
+    public Long getId() {
+        return id;
+    }
 
     public Client getClient() {
         return client;

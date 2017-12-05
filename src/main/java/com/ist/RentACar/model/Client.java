@@ -27,6 +27,10 @@ public class Client {
         this.lastName = lastName;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public List<Voiture> getVoitures() {
         return voitures;
     }
