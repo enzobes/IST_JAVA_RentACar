@@ -55,7 +55,7 @@ public class Voiture {
                 "id=" + id +
                 ", plateNumber='" + plateNumber + '\'' +
                 ", marque='" + marque + '\'' +
-                ", client='" + client.toString() + '\'' +
+                //", client='" + client.toString() + '\'' +
                 '}';
     }
 }

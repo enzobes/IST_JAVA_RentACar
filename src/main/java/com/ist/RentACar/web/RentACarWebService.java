@@ -1,6 +1,7 @@
 package com.ist.RentACar.web;
 
 
+import com.ist.RentACar.jms.VoitureProducer;
 import com.ist.RentACar.model.Client;
 import com.ist.RentACar.model.User;
 import com.ist.RentACar.model.Voiture;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.jms.JMSException;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,13 +28,16 @@ public class RentACarWebService {
     private VoitureService voitureService;
     @Autowired
     private ClientService clientService;
+    @Autowired
+    private VoitureProducer voitureProducer;
 
     // La voiture créée a pour paramètre l'objet json envoyé avec la requete
     @RequestMapping(value = "/voiture", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void creerVoiture(@RequestBody Voiture v) {
-        log.info("POST voiture");
-        this.voitureService.saveVoiture(v);
+    public void creerVoiture(@RequestBody Voiture v) throws InterruptedException, JMSException {
+        log.info("POST voiture: " + v.toString());
+        this.voitureProducer.send(v);
+        Thread.sleep(1000L);
     }
 
     // Renvoie la voiture associée à l'id
