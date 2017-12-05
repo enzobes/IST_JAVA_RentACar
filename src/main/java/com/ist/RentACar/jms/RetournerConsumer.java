@@ -24,8 +24,8 @@ public class RetournerConsumer {
         Map<String, String> map = (Map<String, String>) msg.getPayload();
 
         log.info("Received: id=" + map.get("id"));
-        //Long id = msg.getPayload().toString()
-        // this.voitureService.retournerVoitue();
+        Long id = Long.parseLong(map.get("id"), 10);
+        this.voitureService.retournerVoitue(id);
     }
 
 }

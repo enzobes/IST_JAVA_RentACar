@@ -20,7 +20,7 @@ public class Dataloader implements CommandLineRunner{
 
     @Override
     public void run(String... strings)throws Exception {
-
+        /*
         logger.info("Chargement des données des voitures");
 
         repository.save(new Voiture("04AH91", "Renault"));
@@ -29,7 +29,7 @@ public class Dataloader implements CommandLineRunner{
         repository.save(new Voiture("48NA01", "Fiat"));
         repository.save(new Voiture("62AD49", "Citroën"));
         repository.save(new Voiture("82HG30", "Mercedes"));
-
+        */
     }
 
 
