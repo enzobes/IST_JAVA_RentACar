@@ -45,7 +45,9 @@ public class VoitureServiceImpl implements VoitureService{
     @Override
     public void rentVoiture(long id, Client c) {
         Voiture v = repository.findOne(id);
-        clientService.saveClient(c);
+        if (clientService.findByNames(c.getFirstName(), c.getLastName()) == null) {
+            clientService.saveClient(c);
+        }
         c = clientService.findByNames(c.getFirstName(), c.getLastName());
         v.setClient(c);
         this.saveVoiture(v);
