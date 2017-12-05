@@ -49,7 +49,6 @@ public class VoitureServiceImpl implements VoitureService{
         c = clientService.findByNames(c.getFirstName(), c.getLastName());
         v.setClient(c);
         this.saveVoiture(v);
-        System.out.println(this.findByPlaque(v.getPlateNumber()).toString());
     }
 
     @Override

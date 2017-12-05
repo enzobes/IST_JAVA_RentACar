@@ -28,7 +28,6 @@ public class PostVoitureConsumer {
         Voiture v = new Voiture(map.get("plateNumber"), map.get("marque"));
 
         this.voitureService.saveVoiture(v);
-        log.info("Voiture Created: " + v.toString());
     }
 
 }

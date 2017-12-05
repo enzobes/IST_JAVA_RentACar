@@ -22,7 +22,7 @@ public class LouerConsumer {
     @JmsListener(destination = "louervoiture")
     public void receiveQueue(Message msg) {
         Map<String, String> map = (Map<String, String>) msg.getPayload();
-
+        log.info("Received");
         voitureService.rentVoiture(Long.parseLong(map.get("voiture_id"), 10), new Client(map.get("firstName"), map.get("lastName")));
 
     }
