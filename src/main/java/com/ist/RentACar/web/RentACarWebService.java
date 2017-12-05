@@ -1,11 +1,10 @@
 package com.ist.RentACar.web;
 
 
-import com.ist.RentACar.model.Person;
+import com.ist.RentACar.model.Client;
 import com.ist.RentACar.model.User;
 import com.ist.RentACar.model.Voiture;
-import com.ist.RentACar.service.PersonService;
-import com.ist.RentACar.service.RentService;
+import com.ist.RentACar.service.ClientService;
 import com.ist.RentACar.service.VoitureService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,9 +25,7 @@ public class RentACarWebService {
     @Autowired
     private VoitureService voitureService;
     @Autowired
-    private PersonService personService;
-    @Autowired
-    private RentService rentService;
+    private ClientService clientService;
 
     // La voiture créée a pour paramètre l'objet json envoyé avec la requete
     @RequestMapping(value = "/voiture", method = RequestMethod.POST)
@@ -61,18 +58,18 @@ public class RentACarWebService {
     @RequestMapping(value = "/louer/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public void louerUneVoiture(@PathVariable("id") long id, @RequestBody Person p) {
+    public void louerUneVoiture(@PathVariable("id") long id, @RequestBody Client c) {
         log.info("PUT /louer/:id");
-        Voiture v = voitureService.findOne(id);
-        rentService.saveRent(v, p);
+        log.info(c.toString());
+        voitureService.rentVoiture(id, c);
     }
 
     // Retourner la voiture après une location
     @RequestMapping(value = "/retourner/{id}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void retournerVoiture(@PathVariable("id") long id) {
-        log.info("POST /retourner/:id");
-        rentService.delete(id);
+        log.info("POST /retourner/" + (int) id);
+        voitureService.retournerVoitue(id);
     }
 
 

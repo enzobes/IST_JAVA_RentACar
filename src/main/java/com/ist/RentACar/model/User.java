@@ -6,7 +6,8 @@ public class User {
     private String login;
     private String password;
 
-    protected User() {}
+    protected User() {
+    }
 
     public User(String login, String password) {
         this.login = login;

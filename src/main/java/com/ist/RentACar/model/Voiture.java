@@ -2,7 +2,6 @@ package com.ist.RentACar.model;
 
 
 import javax.persistence.*;
-import java.util.Collection;
 
 @Entity
 public class Voiture {
@@ -10,36 +9,29 @@ public class Voiture {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String plateNumber;
     private String marque;
-    @Column(name="RENTS")
-    @ElementCollection(targetClass=Rent.class)
-    private Collection<Rent> rents;
+    @ManyToOne
+    //@JoinColumn(name = "client_id")
+    private Client client;
 
-    protected Voiture() {
+    public Voiture() {
     }
-
 
     public Voiture(String plateNumber, String marque) {
         this.plateNumber = plateNumber;
         this.marque = marque;
     }
 
-    @OneToMany
-    public Collection<Rent> getRents() {
-        return rents;
+
+    public Client getClient() {
+        return client;
     }
 
-    public void setRents(Collection<Rent> rents) {
-        this.rents = rents;
+    public void setClient(Client client) {
+        this.client = client;
     }
-
-
-    public void addRent(Rent rent) {
-        this.rents.add(rent);
-        rent.voiture = this;
-    }
-
 
     public String getPlateNumber() {
         return plateNumber;
@@ -63,6 +55,7 @@ public class Voiture {
                 "id=" + id +
                 ", plateNumber='" + plateNumber + '\'' +
                 ", marque='" + marque + '\'' +
+                ", client='" + client.toString() + '\'' +
                 '}';
     }
 }
