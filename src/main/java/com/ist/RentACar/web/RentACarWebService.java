@@ -1,7 +1,9 @@
 package com.ist.RentACar.web;
 
 
-import com.ist.RentACar.jms.VoitureProducer;
+import com.ist.RentACar.jms.GetVoitureProducer;
+import com.ist.RentACar.jms.LouerProducer;
+import com.ist.RentACar.jms.PostVoitureProducer;
 import com.ist.RentACar.model.Client;
 import com.ist.RentACar.model.User;
 import com.ist.RentACar.model.Voiture;
@@ -29,14 +31,19 @@ public class RentACarWebService {
     @Autowired
     private ClientService clientService;
     @Autowired
-    private VoitureProducer voitureProducer;
+    private PostVoitureProducer postVoitureProducer;
+    @Autowired
+    private GetVoitureProducer getVoitureProducer;
+    @Autowired
+    private LouerProducer louerProducer;
+
 
     // La voiture créée a pour paramètre l'objet json envoyé avec la requete
     @RequestMapping(value = "/voiture", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void creerVoiture(@RequestBody Voiture v) throws InterruptedException, JMSException {
         log.info("POST voiture: " + v.toString());
-        this.voitureProducer.send(v);
+        this.postVoitureProducer.send(v);
         Thread.sleep(1000L);
     }
 
@@ -46,6 +53,7 @@ public class RentACarWebService {
     @ResponseBody
     public Voiture obtenirUneVoiture(@PathVariable(value = "id") long id) {
         log.info("GET /voiture/:id");
+        this.getVoitureProducer.send(id);
         return this.voitureService.findOne(id);
     }
 
@@ -63,25 +71,28 @@ public class RentACarWebService {
     @RequestMapping(value = "/louer/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public void louerUneVoiture(@PathVariable("id") long id, @RequestBody Client c) {
+    public void louerUneVoiture(@PathVariable("id") Long id, @RequestBody Client c) throws InterruptedException, JMSException  {
         log.info("PUT /louer/:id");
         log.info(c.toString());
-        voitureService.rentVoiture(id, c);
+        // voitureService.rentVoiture(id, c);
+        this.louerProducer.send(c, id);
+        Thread.sleep(1000L);
     }
 
     // Retourner la voiture après une location
     @RequestMapping(value = "/retourner/{id}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void retournerVoiture(@PathVariable("id") long id) {
-        log.info("POST /retourner/" + (int) id);
+    public void retournerVoiture(@PathVariable("id") Long id) {
+        log.info("POST /retourner/" + id.toString());
         voitureService.retournerVoitue(id);
+
     }
 
 
     // Suppression d'une voiture du garage
     @RequestMapping(value = "/voiture/{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    public void deleteCar(@PathVariable int id) {
+    public void deleteCar(@PathVariable int id){
         log.info("DELETE /voiture/:id");
         voitureService.delete(id);
     }

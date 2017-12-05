@@ -13,28 +13,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class VoitureProducer implements CommandLineRunner {
+public class GetVoitureProducer implements CommandLineRunner {
 
-    private static final Logger log = LoggerFactory.getLogger(VoitureProducer.class);
+    private static final Logger log = LoggerFactory.getLogger(GetVoitureProducer.class);
 
     @Autowired
     private JmsMessagingTemplate jmsMessagingTemplate;
 
     @Autowired
-    private Queue queue;
+    private Queue queue2;
 
     @Override
     public void run(String... args) throws Exception {
         log.info("Sending Voiture");
     }
 
-
-    public void send(Voiture v) {
-        log.info("Sending: " + v.toString());
-        Map m1 = new HashMap();
-        m1.put("plateNumber", v.getPlateNumber());
-        m1.put("marque", v.getMarque());
-        jmsMessagingTemplate.convertAndSend(this.queue, m1);
+    public void send(Long id) {
+        log.info("id: " + id);
+        jmsMessagingTemplate.convertAndSend(this.queue2, id);
     }
 
 
