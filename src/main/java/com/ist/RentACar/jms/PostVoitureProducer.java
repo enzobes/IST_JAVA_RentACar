@@ -25,16 +25,13 @@ public class PostVoitureProducer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        log.info("Sending Voiture");
+        log.info("PostVoitureProducer");
     }
 
 
     public void send(Voiture v) {
         log.info("Sending: " + v.toString());
-        Map m1 = new HashMap();
-        m1.put("plateNumber", v.getPlateNumber());
-        m1.put("marque", v.getMarque());
-        jmsMessagingTemplate.convertAndSend(this.queue, m1);
+        jmsMessagingTemplate.convertAndSend(this.queue, v);
     }
 
 

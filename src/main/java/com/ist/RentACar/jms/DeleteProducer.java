@@ -24,15 +24,13 @@ public class DeleteProducer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        log.info("Returning Voiture");
+        log.info("DeleteProducer");
     }
 
 
     public void send(Long id) {
         log.info("Delete: id=" + id.toString());
-        Map m = new HashMap();
-        m.put("id", id.toString());
-        jmsMessagingTemplate.convertAndSend(this.queue5, m);
+        jmsMessagingTemplate.convertAndSend(this.queue5, id);
     }
 
 

@@ -23,9 +23,7 @@ public class PostVoitureConsumer {
     public void receiveQueue(Message msg) {
 
         log.info("Voiture Received: " + msg.getPayload().toString());
-        Map<String, String> map = (Map<String, String>) msg.getPayload();
-
-        Voiture v = new Voiture(map.get("plateNumber"), map.get("marque"));
+        Voiture v = (Voiture) msg.getPayload();
 
         this.voitureService.saveVoiture(v);
     }

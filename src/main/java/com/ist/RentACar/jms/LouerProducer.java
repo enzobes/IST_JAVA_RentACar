@@ -26,7 +26,7 @@ public class LouerProducer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        log.info("Sending Voiture");
+        log.info("LouerProducer");
     }
 
 
