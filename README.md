@@ -10,3 +10,6 @@ docker pull datagrip/hsqldb:2.3.4
 docker run -d -p 9001:9001 --name hsqldb datagrip/hsqldb:2.3.4
 ```
 
+## TODOs
+
+* Dockerfile & docker-compose.yml
